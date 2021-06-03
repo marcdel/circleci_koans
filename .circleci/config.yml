@@ -13,8 +13,8 @@ jobs:
     steps:
       - run:
           command: |
-            echo $(circleci tests glob "tests/integration/**/*.sh" "tests/unit/**/*.sh")
-            circleci tests glob "tests/integration/**/*.sh" "tests/unit/**/*.sh" | xargs -n 1 echo
+            echo $(circleci tests glob "tests/**/*.sh")
+            echo $(circleci tests glob "tests/**/*.sh" | circleci tests split --split-by=timings)
 workflows:
   version: 2
   workflow:
