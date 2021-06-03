@@ -6,3 +6,12 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: echo "hello world" # run the `echo` command
+  test:
+    docker:
+      - image: circleci/node # the primary container, where your job's commands are run
+    parallelism: 4
+    steps:
+      - run:
+          command: |
+            echo $(circleci tests glob "tests/integration/**/*.sh" "tests/unit/**/*.sh")
+            circleci tests glob "tests/integration/**/*.sh" "tests/unit/**/*.sh" | xargs -n 1 echo
